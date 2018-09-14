@@ -15,7 +15,27 @@
 
 <body>
   <div id="app" v-cloak>
-    {{ message }}
+
+    <span>Level</span>
+    <select v-model="level">
+      <option v-for="level in levels">
+        {{ level }}
+      </option>
+    </select>
+
+    <span>Topic</span>
+    <select v-model="topic">
+      <option v-for="topic in topics">
+        {{ topic }}
+      </option>
+    </select>
+
+    <span>Word</span>
+    <select v-model="word">
+      <option v-for="word in words">
+        {{ word }}
+      </option>
+    </select>
   </div>
 
   <script src="app.js"></script>
