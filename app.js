@@ -9,26 +9,26 @@
     'use strict';
 
 
-    function append(m, k, v) {
-        if (m.has(k)) {
-            var s = m.get(k);
+    function append(o, k, v) {
+        if (k in o) {
+            var s = o[k];
         } else {
             var s = new Set();
         }
 
         s.add(v);
-        m.set(k, s);
+        o[k] = s;
 
-        return m;
+        return o;
     }
 
 
-    // we use Set and Map but they are not fully supported by vue
+    // sets are not fully supported by vue
     // one can get away with Array.from() but this does not allow to modify
-    // the Map and Set data but here we are ok since these are read at the first page load
+    // the set data but here we are ok since these are read at the first page load
     // and considered read-only
     var topics_m = new Map();
-    var words_m = new Map();
+    var words_m = {};
 
 
     var app = new Vue({
@@ -42,24 +42,23 @@
         computed: {
             topics: function() {
                 var l = [];
-                if (topics_m.has(this.level)) {
-                    l = Array.from(topics_m.get(this.level));
+                if (this.level in topics_m) {
+                    l = Array.from(topics_m[this.level]);
                 }
                 return l;
             },
             words: function() {
                 var l = [];
                 var t = [this.level, this.topic];
-                console.log(t, words_m.has(t))
-                if (words_m.has(t)) {
-                    l = Array.from(words_m.get(t));
+                if (t in words_m) {
+                    l = Array.from(words_m[t]);
                 }
                 return l;
             }
         },
         created: function() {
             var vm = this
-            Papa.parse("https://raw.githubusercontent.com/bast/twirll-prototype/4a7006960d90687c2f63b541d220a3a843dfc818/example.csv", {
+            Papa.parse("https://raw.githubusercontent.com/bast/twirll-prototype/e9dac74e0944be83dc13e6b03f06035a261dce93/example.csv", {
                 download: true,
                 header: true,
                 complete: function(results) {
@@ -72,9 +71,7 @@
                             var topic = results.data[i]['Topic(s)'];
                             var word = results.data[i]['Lemma'];
                             topics_m = append(topics_m, level, topic);
-                            var t = [level, topic];
-                            words_m = append(words_m, t, word);
-                            console.log(t, words_m.has(t))
+                            words_m = append(words_m, [level, topic], word);
                         }
                     }
 
