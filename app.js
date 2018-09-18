@@ -27,7 +27,7 @@
     // one can get away with Array.from() but this does not allow to modify
     // the set data but here we are ok since these are read at the first page load
     // and considered read-only
-    var topics_m = new Map();
+    var topics_m = {};
     var words_m = {};
 
 
