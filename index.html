@@ -1,44 +1,112 @@
 <!doctype html>
-<html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<head>
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  <script src="papaparse-4.6.0.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
 
-  <!-- https://vuejs.org/v2/api/#v-cloak -->
-  <style>
-    [v-cloak] {
-      display: none;
-    }
-  </style>
-</head>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
 
-<body>
-  <div id="app" v-cloak>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="papaparse-4.6.0.min.js"></script>
 
-    <span>Level</span>
-    <select v-model="level">
-      <option v-for="level in levels">
-        {{ level }}
-      </option>
-    </select>
+    <style>
+      body {
+        font-family: 'Open Sans';
+        font-size: 16px;
+      }
+      input[type="text"], textarea {
+        background-color: #99eeff;
+      }
+    </style>
 
-    <span>Topic</span>
-    <select v-model="topic">
-      <option v-for="topic in topics">
-        {{ topic }}
-      </option>
-    </select>
+    <!-- https://vuejs.org/v2/api/#v-cloak -->
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
 
-    <span>Word</span>
-    <select v-model="word">
-      <option v-for="word in words">
-        {{ word }}
-      </option>
-    </select>
-  </div>
+    <title>twirll-prototype!</title>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <div class="container">
 
-  <script src="app.js"></script>
-</body>
+        <div class="col-md-12">
+          <div class="row">
+            <h1>Some title</h1>
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="col-md-4">
+            <label>Level</label>
+            <select v-model="level" class="form-control">
+              <option v-for="level in levels">
+                {{ level }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label>Topic</label>
+            <select v-model="topic" class="form-control">
+              <option v-for="topic in topics">
+                {{ topic }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <h1>{{ words[counter] }}</h1>
+          </div>
+
+          <div class="col-md-4">
+            <div v-if="num_words > 1">
+              <button v-on:click="next_word" type="button" class="btn btn-success">Next word</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="row">
+            <input type="checkbox" v-model="show_translation">
+            show translation: {{ show_translation }}
+
+            <br>
+            <span>Sentences</span>
+            <div v-for="sentence in sentences">
+              {{ sentence[0] }}
+              <div v-if="show_translation">
+                translation: {{ sentence[1] }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+  </body>
 </html>

@@ -29,14 +29,18 @@
     // and considered read-only
     var topics_m = {};
     var words_m = {};
+    var sentences_m = {};
 
 
     var app = new Vue({
         el: '#app',
         data: {
+            counter: 0,
+            num_words: 0,
             level: '',
             topic: '',
             word: '',
+            show_translation: false,
             levels: []
         },
         computed: {
@@ -53,7 +57,27 @@
                 if (t in words_m) {
                     l = Array.from(words_m[t]);
                 }
+                this.counter = 0;
+                this.num_words = l.length;
+                this.word = l[0];
                 return l;
+            },
+            sentences: function() {
+                var l = [];
+                var t = [this.level, this.topic, this.word];
+                if (t in sentences_m) {
+                    l = Array.from(sentences_m[t]);
+                }
+                return l;
+            }
+        },
+        methods: {
+            next_word: function(event) {
+                this.counter += 1;
+                if (this.counter > (this.num_words - 1)) {
+                    this.counter = 0;
+                }
+                this.word = this.words[this.counter];
             }
         },
         created: function() {
@@ -70,8 +94,14 @@
                             levels.add(level);
                             var topic = results.data[i]['Topic(s)'];
                             var word = results.data[i]['Lemma'];
+
                             topics_m = append(topics_m, level, topic);
                             words_m = append(words_m, [level, topic], word);
+
+                            var sentence_russian = results.data[i]['Example Sentence'];
+                            var sentence_english = results.data[i]['Translation'];
+
+                            sentences_m = append(sentences_m, [level, topic, word], [sentence_russian, sentence_english]);
                         }
                     }
 
