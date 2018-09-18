@@ -5,10 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <!-- latest compiled and minified css -->
     <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+    <!-- optional theme -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
           crossorigin="anonymous">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
@@ -24,6 +30,7 @@
       input[type="text"], textarea {
         background-color: #99eeff;
       }
+      .top-buffer { margin-top: 30px; }
     </style>
 
     <!-- https://vuejs.org/v2/api/#v-cloak -->
@@ -39,14 +46,8 @@
     <div id="app" v-cloak>
       <div class="container">
 
-        <div class="col-md-12">
-          <div class="row">
-            <h1>Some title</h1>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4">
+        <div class="row top-buffer">
+          <div class="col-md-1">
             <label>Level</label>
             <select v-model="level" class="form-control">
               <option v-for="level in levels">
@@ -55,7 +56,7 @@
             </select>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label>Topic</label>
             <select v-model="topic" class="form-control">
               <option v-for="topic in topics">
@@ -65,29 +66,34 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-4">
+        <div class="row top-buffer">
+          <div class="col-md-12">
             <h1>{{ words[counter] }}</h1>
           </div>
+        </div>
 
-          <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12">
             <div v-if="num_words > 1">
-              <button v-on:click="next_word" type="button" class="btn btn-success">Next word</button>
+              <button v-on:click="next_word" type="button" class="btn-xs btn-success">Next word</button>
+              &nbsp;
+              &nbsp;
+              <input type="checkbox"
+                     v-model="show_translation">
+              Show translation
             </div>
           </div>
         </div>
 
-        <div class="col-md-12">
-          <div class="row">
-            <input type="checkbox" v-model="show_translation">
-            show translation: {{ show_translation }}
-
-            <br>
-            <span>Sentences</span>
-            <div v-for="sentence in sentences">
+        <div v-for="sentence in sentences">
+          <div class="row top-buffer">
+            <div class="col-md-12">
               {{ sentence[0] }}
               <div v-if="show_translation">
-                translation: {{ sentence[1] }}
+                <i>{{ sentence[1] }}</i>
+              </div>
+              <div v-else>
+                &nbsp;
               </div>
             </div>
           </div>
@@ -96,17 +102,12 @@
       </div>
     </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
+
     <script src="app.js"></script>
   </body>
 </html>
