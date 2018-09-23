@@ -3,7 +3,7 @@
 # SMARTool (prototype)
 
 - Uses https://www.papaparse.com/#remote-files to fetch CSV data.
-- The code is licensed under the
+- The code (JS and HTML) is licensed under the
   [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html)
   (except PapaParse which uses MIT license).
 
