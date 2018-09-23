@@ -96,20 +96,21 @@
                         if (results.data[i]['Lemma'] != '') {
                             var level = results.data[i]['Level'];
                             levels.add(level);
-                            var topic = results.data[i]['Topic(s)'];
                             var word = results.data[i]['Lemma'];
-
-                            topics_m = append(topics_m, level, topic);
-                            words_m = append(words_m, [level, topic], word);
-
                             var sentence_russian = results.data[i]['Example Sentence'];
                             var sentence_english = results.data[i]['Translation'];
                             var form = results.data[i]['Form'];
                             var analysis = results.data[i]['Analysis'];
 
-                            sentences_m = append(sentences_m,
-                                                 [level, topic, word],
-                                                 [sentence_russian, sentence_english, form, analysis]);
+                            var topics_comma_separated = results.data[i]['Topic(s)'];
+                            var topics = topics_comma_separated.split(', ')
+                            for (var topic of topics) {
+                                topics_m = append(topics_m, level, topic);
+                                words_m = append(words_m, [level, topic], word);
+                                sentences_m = append(sentences_m,
+                                                     [level, topic, word],
+                                                     [sentence_russian, sentence_english, form, analysis]);
+                            }
                         }
                     }
 
