@@ -40,6 +40,7 @@
             level: '',
             topic: '',
             word: '',
+            voice: 'Male',
             show_translation: false,
             levels: []
         },
@@ -72,7 +73,7 @@
             }
         },
         methods: {
-            next_word: function(event) {
+            next_word: function() {
                 this.counter += 1;
                 if (this.counter > (this.num_words - 1)) {
                     this.counter = 0;
@@ -82,6 +83,12 @@
             sentence_with_emphasis: function(s, w) {
                 var w_bold = "<b>" + w + "</b>";
                 return s.replace(w, w_bold);
+            },
+            play_voice: function(s) {
+                responsiveVoice.speak(s, "Russian " + this.voice);
+            },
+            stop_voice: function() {
+                responsiveVoice.cancel();
             }
         },
         created: function() {

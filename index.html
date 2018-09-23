@@ -21,15 +21,18 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="js/papaparse-4.6.0.min.js"></script>
+    <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
 
     <style>
       body {
         font-family: 'Open Sans';
         font-size: 16px;
       }
+
       input[type="text"], textarea {
         background-color: #99eeff;
       }
+
       .top-buffer { margin-top: 25px; }
     </style>
 
@@ -85,8 +88,15 @@
               &nbsp;
               &nbsp;
               <input type="checkbox"
+                     id="translation"
                      v-model="show_translation">
-              Show translation
+              <label for="translation">Show translation</label>
+              &nbsp;
+              &nbsp;
+              <input type="radio" id="male" value="Male" v-model="voice">
+              <label for="male">male voice</label>
+              <input type="radio" id="female" value="Female" v-model="voice">
+              <label for="female">female voice</label>
             </div>
           </div>
         </div>
@@ -98,6 +108,10 @@
                    style="display: inline"> </div>
                 &nbsp;
               ({{ sentence[3] }})
+              &nbsp;
+              &nbsp;
+              <button v-on:click="play_voice(sentence[0])">play</button>
+              <button v-on:click="stop_voice">stop</button>
               <div v-if="show_translation">
                 <i>{{ sentence[1] }}</i>
               </div>
