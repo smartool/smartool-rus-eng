@@ -82,7 +82,7 @@
         },
         created: function() {
             var vm = this
-            Papa.parse("https://raw.githubusercontent.com/bast/twirll-prototype/e9dac74e0944be83dc13e6b03f06035a261dce93/example.csv", {
+            Papa.parse("https://raw.githubusercontent.com/bast/twirll-prototype/d7fb5c18a4d55e92421ed5aabe3e2127ba885c1e/data/example.csv", {
                 download: true,
                 header: true,
                 complete: function(results) {
