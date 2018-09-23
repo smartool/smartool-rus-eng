@@ -94,9 +94,10 @@
         <div v-for="sentence in sentences">
           <div class="row top-buffer">
             <div class="col-md-12">
-              {{ sentence[0] }}
+              <div v-html="sentence_with_emphasis(sentence[0], sentence[2])"
+                   style="display: inline"> </div>
                 &nbsp;
-              ({{ sentence[2] }})
+              ({{ sentence[3] }})
               <div v-if="show_translation">
                 <i>{{ sentence[1] }}</i>
               </div>

@@ -78,6 +78,10 @@
                     this.counter = 0;
                 }
                 this.word = this.words[this.counter];
+            },
+            sentence_with_emphasis: function(s, w) {
+                var w_bold = "<b>" + w + "</b>";
+                return s.replace(w, w_bold);
             }
         },
         created: function() {
@@ -100,11 +104,12 @@
 
                             var sentence_russian = results.data[i]['Example Sentence'];
                             var sentence_english = results.data[i]['Translation'];
+                            var form = results.data[i]['Form'];
                             var analysis = results.data[i]['Analysis'];
 
                             sentences_m = append(sentences_m,
                                                  [level, topic, word],
-                                                 [sentence_russian, sentence_english, analysis]);
+                                                 [sentence_russian, sentence_english, form, analysis]);
                         }
                     }
 
