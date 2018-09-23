@@ -100,8 +100,11 @@
 
                             var sentence_russian = results.data[i]['Example Sentence'];
                             var sentence_english = results.data[i]['Translation'];
+                            var analysis = results.data[i]['Analysis'];
 
-                            sentences_m = append(sentences_m, [level, topic, word], [sentence_russian, sentence_english]);
+                            sentences_m = append(sentences_m,
+                                                 [level, topic, word],
+                                                 [sentence_russian, sentence_english, analysis]);
                         }
                     }
 
