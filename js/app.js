@@ -117,7 +117,7 @@ var app = new Vue({
                         var sentence_russian = results.data[i]['Example Sentence'];
 
                         // with this we exclude sentences like "-", or ""
-                        // in other words we exluce unfinished examples
+                        // in other words we exclude unfinished examples
                         if (sentence_russian.length > 1) {
                             var sentence_english = results.data[i]['Translation'];
                             var form = results.data[i]['Form'];
