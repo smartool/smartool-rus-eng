@@ -73,6 +73,13 @@
             }
         },
         methods: {
+            previous_word: function() {
+                this.counter -= 1;
+                if (this.counter < 0) {
+                    this.counter = this.num_words - 1;
+                }
+                this.word = this.words[this.counter];
+            },
             next_word: function() {
                 this.counter += 1;
                 if (this.counter > (this.num_words - 1)) {

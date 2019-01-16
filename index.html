@@ -76,6 +76,8 @@
         <div class="row">
           <div class="col-md-12">
             <div v-if="num_words > 1">
+              <button v-on:click="previous_word" type="button" class="btn-xs btn-success">Previous word</button>
+              &nbsp;
               <button v-on:click="next_word" type="button" class="btn-xs btn-success">Next word</button>
               &nbsp;
               &nbsp;
