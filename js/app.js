@@ -88,8 +88,8 @@
                 this.word = this.words[this.counter];
             },
             sentence_with_emphasis: function(s, w) {
-                var w_bold = "<b>" + w + "</b>";
-                return s.replace(w, w_bold);
+                var w_high = "<span class='highlight'>" + w + "</span>";
+                return s.replace(w, w_high);
             },
             play_voice: function(s) {
                 responsiveVoice.speak(s, "Russian " + this.voice);
