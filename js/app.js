@@ -88,8 +88,17 @@
                 this.word = this.words[this.counter];
             },
             sentence_with_emphasis: function(s, w) {
-                var w_high = "<span class='highlight'>" + w + "</span>";
-                return s.replace(w, w_high);
+                var i = s.toLowerCase().indexOf(w.toLowerCase());
+                if (i > -1) {
+                    return [
+                        s.slice(0, i),
+                        "<span class='highlight'>",
+                        s.slice(i, i + w.length),
+                        "</span>",
+                        s.slice(i + w.length)
+                        ].join('');
+                }
+                return s;
             },
             play_voice: function(s) {
                 responsiveVoice.speak(s, "Russian " + this.voice);
