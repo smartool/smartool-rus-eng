@@ -103,42 +103,45 @@ var app = new Vue({
     },
     created: function() {
         var vm = this
-        Papa.parse("https://raw.githubusercontent.com/bast/twirll-prototype/d7fb5c18a4d55e92421ed5aabe3e2127ba885c1e/data/example.csv", {
-            download: true,
-            header: true,
-            complete: function(results) {
+        var urls = ["https://raw.githubusercontent.com/bast/twirll-prototype/d7fb5c18a4d55e92421ed5aabe3e2127ba885c1e/data/example.csv"];
+        for (var url of urls) {
+            Papa.parse(url, {
+                download: true,
+                header: true,
+                complete: function(results) {
 
-                var levels = new Set();
-                for (var i = 0; i < results.data.length; i++) {
-                    if (results.data[i]['Lemma'] != '') {
-                        var level = results.data[i]['Level'];
-                        levels.add(level);
-                        var word = results.data[i]['Lemma'];
-                        var sentence_russian = results.data[i]['Example Sentence'];
+                    var levels = new Set();
+                    for (var i = 0; i < results.data.length; i++) {
+                        if (results.data[i]['Lemma'] != '') {
+                            var level = results.data[i]['Level'];
+                            levels.add(level);
+                            var word = results.data[i]['Lemma'];
+                            var sentence_russian = results.data[i]['Example Sentence'];
 
-                        // with this we exclude sentences like "-", or ""
-                        // in other words we exclude unfinished examples
-                        if (sentence_russian.length > 1) {
-                            var sentence_english = results.data[i]['Translation'];
-                            var form = results.data[i]['Form'];
-                            var analysis = results.data[i]['Analysis'];
+                            // with this we exclude sentences like "-", or ""
+                            // in other words we exclude unfinished examples
+                            if (sentence_russian.length > 1) {
+                                var sentence_english = results.data[i]['Translation'];
+                                var form = results.data[i]['Form'];
+                                var analysis = results.data[i]['Analysis'];
 
-                            var topics_comma_separated = results.data[i]['Topic(s)'];
-                            var topics = topics_comma_separated.split(', ')
-                            for (var topic of topics) {
-                                topics_m = append(topics_m, level, topic);
-                                words_m = append(words_m, [level, topic], word);
-                                sentences_m = append(sentences_m,
-                                    [level, topic, word],
-                                    [sentence_russian, sentence_english, form, analysis]);
+                                var topics_comma_separated = results.data[i]['Topic(s)'];
+                                var topics = topics_comma_separated.split(', ')
+                                for (var topic of topics) {
+                                    topics_m = append(topics_m, level, topic);
+                                    words_m = append(words_m, [level, topic], word);
+                                    sentences_m = append(sentences_m,
+                                        [level, topic, word],
+                                        [sentence_russian, sentence_english, form, analysis]);
+                                }
                             }
                         }
                     }
-                }
 
-                vm.message = results.data[1];
-                vm.levels = Array.from(levels);
-            }
-        });
+                    vm.message = results.data[1];
+                    vm.levels = Array.from(levels);
+                }
+            });
+        }
     }
 })
