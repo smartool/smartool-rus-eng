@@ -103,14 +103,23 @@ var app = new Vue({
     },
     created: function() {
         var vm = this
-        var urls = ["https://raw.githubusercontent.com/bast/twirll-prototype/d7fb5c18a4d55e92421ed5aabe3e2127ba885c1e/data/example.csv"];
-        for (var url of urls) {
+        var levels = new Set();
+        var files = [
+            'twirll_in_process_A1_LIZA.csv',
+            'twirll_in_process_A1_VALYA.csv',
+            'twirll_in_process_A1_ZHENYA.csv',
+            'twirll_in_process_A2_LIZA.csv',
+            'twirll_in_process_A2_VALYA.csv',
+            'twirll_in_process_A2_ZHENYA.csv',
+            'twirll_in_process_B1_VALYA.csv',
+            'twirll_in_process_B1_ZHENYA.csv'
+            ];
+        for (var file of files) {
+            var url = 'https://raw.githubusercontent.com/valentina-zh/twirll-in-process/master/' + file;
             Papa.parse(url, {
                 download: true,
                 header: true,
                 complete: function(results) {
-
-                    var levels = new Set();
                     for (var i = 0; i < results.data.length; i++) {
                         if (results.data[i]['Lemma'] != '') {
                             var level = results.data[i]['Level'];
