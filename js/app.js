@@ -143,7 +143,8 @@ var app = new Vue({
 
                         var topics_comma_separated = results.data[i]['Topic(s)'];
                         var topics = topics_comma_separated.split(', ')
-                        for (var topic of topics) {
+                        for (var _topic of topics) {
+                            var topic = _topic.trim();
                             topics_m = append(topics_m, level, topic);
                             words_m = append(words_m, [level, topic], word);
                             sentences_m = append(sentences_m,
