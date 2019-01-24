@@ -115,7 +115,7 @@ var app = new Vue({
             'twirll_in_process_B1_ZHENYA.csv'
             ];
         for (var file of files) {
-            var url = 'https://raw.githubusercontent.com/valentina-zh/twirll-in-process/master/' + file;
+            var url = 'https://raw.githubusercontent.com/valentina-zh/SMARTool-data/master/' + file;
             Papa.parse(url, {
                 download: true,
                 header: true,
