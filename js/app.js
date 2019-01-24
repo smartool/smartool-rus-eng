@@ -104,6 +104,7 @@ var app = new Vue({
     created: function() {
         var vm = this
         var levels = new Set();
+        var num_successful_requests = 0;
         var files = [
             'twirll_in_process_A1_LIZA.csv',
             'twirll_in_process_A1_VALYA.csv',
@@ -120,6 +121,7 @@ var app = new Vue({
                 download: true,
                 header: true,
                 complete: function(results) {
+                    num_successful_requests++;
                     for (var i = 0; i < results.data.length; i++) {
                         if (results.data[i]['Lemma'] != '') {
                             var level = results.data[i]['Level'];
@@ -146,7 +148,10 @@ var app = new Vue({
                             }
                         }
                     }
-                    vm.levels = Array.from(levels);
+                    if (num_successful_requests == files.length) {
+                        vm.levels = Array.from(levels);
+                        vm.levels.sort();
+                    }
                 }
             });
         }
