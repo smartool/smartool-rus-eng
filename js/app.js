@@ -146,8 +146,6 @@ var app = new Vue({
                             }
                         }
                     }
-
-                    vm.message = results.data[1];
                     vm.levels = Array.from(levels);
                 }
             });
