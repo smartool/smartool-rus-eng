@@ -114,7 +114,7 @@ var app = new Vue({
             'twirll_in_process_A2_ZHENYA.csv',
             'twirll_in_process_B1_VALYA.csv',
             'twirll_in_process_B1_ZHENYA.csv'
-            ];
+        ];
         for (var file of files) {
             var url = 'https://raw.githubusercontent.com/valentina-zh/SMARTool-data/master/' + file;
             Papa.parse(url, {
@@ -123,29 +123,30 @@ var app = new Vue({
                 complete: function(results) {
                     num_successful_requests++;
                     for (var i = 0; i < results.data.length; i++) {
-                        if (results.data[i]['Lemma'] != '') {
-                            var level = results.data[i]['Level'];
-                            levels.add(level);
-                            var word = results.data[i]['Lemma'];
-                            var sentence_russian = results.data[i]['Example Sentence'];
 
-                            // with this we exclude sentences like "-", or ""
-                            // in other words we exclude unfinished examples
-                            if (sentence_russian.length > 1) {
-                                var sentence_english = results.data[i]['Translation'];
-                                var form = results.data[i]['Form'];
-                                var analysis = results.data[i]['Analysis'];
+                        if (results.data[i]['Lemma'] == '') { continue; }
 
-                                var topics_comma_separated = results.data[i]['Topic(s)'];
-                                var topics = topics_comma_separated.split(', ')
-                                for (var topic of topics) {
-                                    topics_m = append(topics_m, level, topic);
-                                    words_m = append(words_m, [level, topic], word);
-                                    sentences_m = append(sentences_m,
-                                        [level, topic, word],
-                                        [sentence_russian, sentence_english, form, analysis]);
-                                }
-                            }
+                        var level = results.data[i]['Level'];
+                        levels.add(level);
+                        var word = results.data[i]['Lemma'];
+                        var sentence_russian = results.data[i]['Example Sentence'];
+
+                        // with this we exclude sentences like "-", or ""
+                        // in other words we exclude unfinished examples
+                        if (sentence_russian.length < 2) { continue; }
+
+                        var sentence_english = results.data[i]['Translation'];
+                        var form = results.data[i]['Form'];
+                        var analysis = results.data[i]['Analysis'];
+
+                        var topics_comma_separated = results.data[i]['Topic(s)'];
+                        var topics = topics_comma_separated.split(', ')
+                        for (var topic of topics) {
+                            topics_m = append(topics_m, level, topic);
+                            words_m = append(words_m, [level, topic], word);
+                            sentences_m = append(sentences_m,
+                                [level, topic, word],
+                                [sentence_russian, sentence_english, form, analysis]);
                         }
                     }
                     if (num_successful_requests == files.length) {
