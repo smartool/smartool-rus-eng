@@ -127,6 +127,8 @@ var app = new Vue({
                         if (results.data[i]['Lemma'] == '') { continue; }
 
                         var level = results.data[i]['Level'];
+                        if (level == '') { continue; }
+
                         levels.add(level);
                         var word = results.data[i]['Lemma'];
                         var sentence_russian = results.data[i]['Example Sentence'];
