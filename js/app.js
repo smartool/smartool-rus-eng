@@ -106,17 +106,17 @@ var app = new Vue({
         var levels = new Set();
         var num_successful_requests = 0;
         var files = [
-            'twirll_in_process_A1_LIZA.csv',
-            'twirll_in_process_A1_VALYA.csv',
-            'twirll_in_process_A1_ZHENYA.csv',
-            'twirll_in_process_A2_LIZA.csv',
-            'twirll_in_process_A2_VALYA.csv',
-            'twirll_in_process_A2_ZHENYA.csv',
-            'twirll_in_process_B1_VALYA.csv',
-            'twirll_in_process_B1_ZHENYA.csv'
+            'SMARTool_data_A1_LIZA.csv',
+            'SMARTool_data_A1_VALYA.csv',
+            'SMARTool_data_A1_ZHENYA.csv',
+            'SMARTool_data_A2_LIZA.csv',
+            'SMARTool_data_A2_VALYA.csv',
+            'SMARTool_data_A2_ZHENYA.csv',
+            'SMARTool_data_B1_VALYA.csv',
+            'SMARTool_data_B1_ZHENYA.csv'
         ];
         for (var file of files) {
-            var url = 'https://raw.githubusercontent.com/valentina-zh/SMARTool-data/master/' + file;
+            var url = 'https://raw.githubusercontent.com/valentina-zh/SMARTool-data/92aa09e5f62212443f6d273e46d90b05bad139dc/' + file;
             Papa.parse(url, {
                 download: true,
                 header: true,
@@ -127,7 +127,7 @@ var app = new Vue({
                         if (results.data[i]['Lemma'] == '') { continue; }
 
                         var level = results.data[i]['Level'];
-                        if (level == '') { continue; }
+                        if (level.trim() == '') { continue; }
 
                         levels.add(level);
                         var word = results.data[i]['Lemma'];
