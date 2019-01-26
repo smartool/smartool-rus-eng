@@ -116,7 +116,7 @@ var app = new Vue({
             'SMARTool_data_B1_ZHENYA.csv'
         ];
         for (var file of files) {
-            var url = 'https://raw.githubusercontent.com/valentina-zh/SMARTool-data/92aa09e5f62212443f6d273e46d90b05bad139dc/' + file;
+            var url = 'https://raw.githubusercontent.com/valentina-zh/SMARTool-data/master/' + file;
             Papa.parse(url, {
                 download: true,
                 header: true,
