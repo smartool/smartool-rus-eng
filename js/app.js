@@ -44,6 +44,7 @@ var app = new Vue({
             if (this.level in topics_m) {
                 l = Array.from(topics_m[this.level]);
             }
+            l.sort();
             return l;
         },
         words: function() {
