@@ -24,6 +24,7 @@ function append(o, k, v) {
 var topics_m = {};
 var words_m = {};
 var sentences_m = {};
+var spellout_m = {};
 
 
 var app = new Vue({
@@ -95,6 +96,9 @@ var app = new Vue({
             }
             return s;
         },
+        spellout: function(abbreviation) {
+            return spellout_m[abbreviation];
+        },
         play_voice: function(s) {
             responsiveVoice.speak(s, "Russian " + this.voice);
         },
@@ -156,6 +160,17 @@ var app = new Vue({
                     if (num_successful_requests == files.length) {
                         vm.levels = Array.from(levels);
                         vm.levels.sort();
+                    }
+                }
+            });
+            Papa.parse('https://raw.githubusercontent.com/valentina-zh/SMARTool-data/master/SMARTool_data_Abbreviations.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    for (var i = 0; i < results.data.length; i++) {
+                        var abbreviation = results.data[i]['Abbreviation'];
+                        var spellout = results.data[i]['Spellout'];
+                        spellout_m[abbreviation] = spellout;
                     }
                 }
             });
