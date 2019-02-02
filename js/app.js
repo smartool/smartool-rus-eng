@@ -129,10 +129,14 @@ var app = new Vue({
                     num_successful_requests++;
                     for (var i = 0; i < results.data.length; i++) {
 
-                        if (results.data[i]['Lemma'] == '') { continue; }
+                        if (results.data[i]['Lemma'] == '') {
+                            continue;
+                        }
 
                         var level = results.data[i]['Level'];
-                        if (level.trim() == '') { continue; }
+                        if (level.trim() == '') {
+                            continue;
+                        }
 
                         levels.add(level);
                         var word = results.data[i]['Lemma'];
@@ -140,7 +144,9 @@ var app = new Vue({
 
                         // with this we exclude sentences like "-", or ""
                         // in other words we exclude unfinished examples
-                        if (sentence_russian.length < 2) { continue; }
+                        if (sentence_russian.length < 2) {
+                            continue;
+                        }
 
                         var sentence_english = results.data[i]['Translation'];
                         var form = results.data[i]['Form'];
