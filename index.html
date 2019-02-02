@@ -70,18 +70,19 @@
 
         <div class="row top-buffer">
           <div class="col-md-12">
-            <h1>{{ words[counter] }}</h1>
+            <span v-if="num_words > 1">
+              <span class="fa fa-arrow-circle-left fa-2x" style="color: #04962b;" v-on:click="previous_word"></span>
+              <span class="fa fa-arrow-circle-right fa-2x" style="color: #04962b;" v-on:click="next_word"></span>
+            </span>
+            &nbsp;
+            &nbsp;
+            <h1 style="display: inline-block;">{{ words[counter] }}</h1>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-12">
             <div v-if="num_words > 1">
-              <button v-on:click="previous_word" type="button" class="btn-xs btn-success">Previous word</button>
-              &nbsp;
-              <button v-on:click="next_word" type="button" class="btn-xs btn-success">Next word</button>
-              &nbsp;
-              &nbsp;
               <input type="checkbox"
                      id="translation"
                      v-model="show_translation">
