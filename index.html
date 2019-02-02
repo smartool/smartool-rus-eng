@@ -56,6 +56,9 @@
               <li class="nav-item">
                 <a class="nav-link show" data-toggle="tab" href="#by_analysis">Search by analysis</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link show" data-toggle="tab" href="#by_word">Search by dictionary</a>
+              </li>
             </ul>
           </div>
 
@@ -90,6 +93,14 @@
                   </option>
                 </select>
               </div>
+              <div class="tab-pane fade" id="by_word">
+                <label>Word</label>
+                <select v-model="word" class="form-control" v-on:click="select_mode('by_word')">
+                  <option v-for="word in words_by_level" :value="word">
+                    {{ word }} ({{ translate_word(word) }})
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -104,7 +115,7 @@
               </span>
               &nbsp;
               &nbsp;
-              <h1 style="display: inline-block;">{{ words[counter] }}</h1>
+              <h1 style="display: inline-block;">{{ words_by_level_topic[counter] }}</h1>
             </div>
           </div>
         </div>

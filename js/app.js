@@ -22,11 +22,14 @@ function append(o, k, v) {
 // the set data but here we are ok since these are read at the first page load
 // and considered read-only
 var map_level_to_topics = {};
+var map_level_to_words = {};
 var map_level_topic_to_words = {};
+var map_level_word_to_sentences = {};
 var map_level_topic_word_to_sentences = {};
 var map_level_analysis_to_sentences = {};
 var map_abbreviation_to_spellout = {};
 var map_level_to_analyses = {};
+var map_word_to_translation = {};
 
 
 var app = new Vue({
@@ -60,7 +63,16 @@ var app = new Vue({
             l.sort();
             return l;
         },
-        words: function() {
+        words_by_level: function() {
+            var l = [];
+            var t = [this.level];
+            if (t in map_level_to_words) {
+                l = Array.from(map_level_to_words[t]);
+            }
+            l.sort();
+            return l;
+        },
+        words_by_level_topic: function() {
             var l = [];
             var t = [this.level, this.topic];
             if (t in map_level_topic_to_words) {
@@ -85,6 +97,12 @@ var app = new Vue({
                     l = Array.from(map_level_analysis_to_sentences[t]);
                 }
             }
+            if (this.mode == 'by_word') {
+                var t = [this.level, this.word];
+                if (t in map_level_word_to_sentences) {
+                    l = Array.from(map_level_word_to_sentences[t]);
+                }
+            }
             return l;
         }
     },
@@ -97,14 +115,14 @@ var app = new Vue({
             if (this.counter < 0) {
                 this.counter = this.num_words - 1;
             }
-            this.word = this.words[this.counter];
+            this.word = this.words_by_level_topic[this.counter];
         },
         next_word: function() {
             this.counter += 1;
             if (this.counter > (this.num_words - 1)) {
                 this.counter = 0;
             }
-            this.word = this.words[this.counter];
+            this.word = this.words_by_level_topic[this.counter];
         },
         sentence_with_emphasis: function(s, w) {
             var i = s.toLowerCase().indexOf(w.toLowerCase());
@@ -118,6 +136,9 @@ var app = new Vue({
                 ].join('');
             }
             return s;
+        },
+        translate_word: function(word) {
+            return map_word_to_translation[word];
         },
         analysis_spellout: function(abbreviation) {
             return map_abbreviation_to_spellout[abbreviation];
@@ -171,6 +192,10 @@ var app = new Vue({
                             continue;
                         }
 
+                        var translation = results.data[i]['Eng Gloss'];
+                        map_word_to_translation[word] = translation;
+                        map_level_to_words = append(map_level_to_words, level, word);
+
                         var sentence_english = results.data[i]['Translation'];
                         var form = results.data[i]['Form'];
                         var analysis = results.data[i]['Analysis'];
@@ -178,6 +203,9 @@ var app = new Vue({
                         map_level_to_analyses = append(map_level_to_analyses, level, analysis);
                         map_level_analysis_to_sentences = append(map_level_analysis_to_sentences,
                             [level, analysis],
+                            [sentence_russian, sentence_english, form, analysis]);
+                        map_level_word_to_sentences = append(map_level_word_to_sentences,
+                            [level, word],
                             [sentence_russian, sentence_english, form, analysis]);
 
                         var topics_comma_separated = results.data[i]['Topic(s)'];
