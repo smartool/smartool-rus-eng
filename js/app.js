@@ -145,9 +145,9 @@ var app = new Vue({
         },
         play_voice: function(s) {
             responsiveVoice.speak(s, "Russian " + this.voice);
-        },
-        stop_voice: function() {
-            responsiveVoice.cancel();
+//      },
+//      stop_voice: function() {
+//          responsiveVoice.cancel();
         }
     },
     created: function() {

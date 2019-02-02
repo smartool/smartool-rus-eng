@@ -145,9 +145,7 @@
                                        data-toggle="tooltip"
                                        v-bind:title="analysis_spellout(sentence[3])"></span>)
               &nbsp;
-              &nbsp;
-              <button v-on:click="play_voice(sentence[0])">play</button>
-              <button v-on:click="stop_voice">stop</button>
+              <span class="fa fa-volume-up fa-2x" style="color: #04962b;" v-on:click="play_voice(sentence[0])"></span>
               <div v-if="show_translation">
                 <i>{{ sentence[1] }}</i>
               </div>
