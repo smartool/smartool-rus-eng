@@ -43,12 +43,26 @@
       <div class="container">
 
         <div class="row top-buffer">
-          <div class="col-md-12">
-            <h1>SMARTool (prototype)</h1>
+
+          <div class="col-md-2">
+            <h2>SMARTool</h2>
           </div>
+
+          <div class="col-md-10">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link show active" data-toggle="tab" href="#by_topic">Search by topic</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link show" data-toggle="tab" href="#by_analysis">Search by analysis</a>
+              </li>
+            </ul>
+          </div>
+
         </div>
 
-        <div class="row">
+        <div class="row top-buffer">
+
           <div class="col-md-2">
             <label>Level</label>
             <select v-model="level" class="form-control">
@@ -59,41 +73,54 @@
           </div>
 
           <div class="col-md-10">
-            <label>Topic</label>
-            <select v-model="topic" class="form-control">
-              <option v-for="topic in topics">
-                {{ topic }}
-              </option>
-            </select>
+            <div id="tab_content" class="tab-content">
+              <div class="tab-pane fade active show" id="by_topic">
+                <label>Topic</label>
+                <select v-model="topic" class="form-control" v-on:click="select_mode('by_topic')">
+                  <option v-for="topic in topics">
+                    {{ topic }}
+                  </option>
+                </select>
+              </div>
+              <div class="tab-pane fade" id="by_analysis">
+                <label>Analysis</label>
+                <select v-model="analysis" class="form-control" v-on:click="select_mode('by_analysis')">
+                  <option v-for="analysis in analyses">
+                    {{ analysis }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div v-if="mode == 'by_topic'">
+          <div class="row top-buffer">
+            <div class="col-md-12">
+              <span v-if="num_words > 1">
+                <span class="fa fa-arrow-circle-left fa-2x" style="color: #04962b;" v-on:click="previous_word"></span>
+                <span class="fa fa-arrow-circle-right fa-2x" style="color: #04962b;" v-on:click="next_word"></span>
+              </span>
+              &nbsp;
+              &nbsp;
+              <h1 style="display: inline-block;">{{ words[counter] }}</h1>
+            </div>
           </div>
         </div>
 
         <div class="row top-buffer">
           <div class="col-md-12">
-            <span v-if="num_words > 1">
-              <span class="fa fa-arrow-circle-left fa-2x" style="color: #04962b;" v-on:click="previous_word"></span>
-              <span class="fa fa-arrow-circle-right fa-2x" style="color: #04962b;" v-on:click="next_word"></span>
-            </span>
+            <input type="checkbox"
+                   id="translation"
+                   v-model="show_translation">
+            <label for="translation">Show translation</label>
             &nbsp;
             &nbsp;
-            <h1 style="display: inline-block;">{{ words[counter] }}</h1>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12">
-            <div v-if="num_words > 1">
-              <input type="checkbox"
-                     id="translation"
-                     v-model="show_translation">
-              <label for="translation">Show translation</label>
-              &nbsp;
-              &nbsp;
-              <input type="radio" id="male" value="Male" v-model="voice">
-              <label for="male">male voice</label>
-              <input type="radio" id="female" value="Female" v-model="voice">
-              <label for="female">female voice</label>
-            </div>
+            <input type="radio" id="male" value="Male" v-model="voice">
+            <label for="male">male voice</label>
+            <input type="radio" id="female" value="Female" v-model="voice">
+            <label for="female">female voice</label>
           </div>
         </div>
 
@@ -105,7 +132,7 @@
                 &nbsp;
               ({{ sentence[3] }} <span class="fa fa-question-circle"
                                        data-toggle="tooltip"
-                                       v-bind:title="spellout(sentence[3])"></span>)
+                                       v-bind:title="analysis_spellout(sentence[3])"></span>)
               &nbsp;
               &nbsp;
               <button v-on:click="play_voice(sentence[0])">play</button>

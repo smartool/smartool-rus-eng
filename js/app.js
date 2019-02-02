@@ -21,19 +21,23 @@ function append(o, k, v) {
 // one can get away with Array.from() but this does not allow to modify
 // the set data but here we are ok since these are read at the first page load
 // and considered read-only
-var topics_m = {};
-var words_m = {};
-var sentences_m = {};
-var spellout_m = {};
+var map_level_to_topics = {};
+var map_level_topic_to_words = {};
+var map_level_topic_word_to_sentences = {};
+var map_level_analysis_to_sentences = {};
+var map_abbreviation_to_spellout = {};
+var map_level_to_analyses = {};
 
 
 var app = new Vue({
     el: '#app',
     data: {
+        mode: 'by_topic',
         counter: 0,
         num_words: 0,
         level: '',
         topic: '',
+        analysis: '',
         word: '',
         voice: 'Male',
         show_translation: false,
@@ -42,8 +46,16 @@ var app = new Vue({
     computed: {
         topics: function() {
             var l = [];
-            if (this.level in topics_m) {
-                l = Array.from(topics_m[this.level]);
+            if (this.level in map_level_to_topics) {
+                l = Array.from(map_level_to_topics[this.level]);
+            }
+            l.sort();
+            return l;
+        },
+        analyses: function() {
+            var l = [];
+            if (this.level in map_level_to_analyses) {
+                l = Array.from(map_level_to_analyses[this.level]);
             }
             l.sort();
             return l;
@@ -51,8 +63,8 @@ var app = new Vue({
         words: function() {
             var l = [];
             var t = [this.level, this.topic];
-            if (t in words_m) {
-                l = Array.from(words_m[t]);
+            if (t in map_level_topic_to_words) {
+                l = Array.from(map_level_topic_to_words[t]);
             }
             this.counter = 0;
             this.num_words = l.length;
@@ -61,14 +73,25 @@ var app = new Vue({
         },
         sentences: function() {
             var l = [];
-            var t = [this.level, this.topic, this.word];
-            if (t in sentences_m) {
-                l = Array.from(sentences_m[t]);
+            if (this.mode == 'by_topic') {
+                var t = [this.level, this.topic, this.word];
+                if (t in map_level_topic_word_to_sentences) {
+                    l = Array.from(map_level_topic_word_to_sentences[t]);
+                }
+            }
+            if (this.mode == 'by_analysis') {
+                var t = [this.level, this.analysis];
+                if (t in map_level_analysis_to_sentences) {
+                    l = Array.from(map_level_analysis_to_sentences[t]);
+                }
             }
             return l;
         }
     },
     methods: {
+        select_mode: function(mode) {
+            this.mode = mode;
+        },
         previous_word: function() {
             this.counter -= 1;
             if (this.counter < 0) {
@@ -96,8 +119,8 @@ var app = new Vue({
             }
             return s;
         },
-        spellout: function(abbreviation) {
-            return spellout_m[abbreviation];
+        analysis_spellout: function(abbreviation) {
+            return map_abbreviation_to_spellout[abbreviation];
         },
         play_voice: function(s) {
             responsiveVoice.speak(s, "Russian " + this.voice);
@@ -152,13 +175,18 @@ var app = new Vue({
                         var form = results.data[i]['Form'];
                         var analysis = results.data[i]['Analysis'];
 
+                        map_level_to_analyses = append(map_level_to_analyses, level, analysis);
+                        map_level_analysis_to_sentences = append(map_level_analysis_to_sentences,
+                            [level, analysis],
+                            [sentence_russian, sentence_english, form, analysis]);
+
                         var topics_comma_separated = results.data[i]['Topic(s)'];
                         var topics = topics_comma_separated.split(', ')
                         for (var _topic of topics) {
                             var topic = _topic.trim();
-                            topics_m = append(topics_m, level, topic);
-                            words_m = append(words_m, [level, topic], word);
-                            sentences_m = append(sentences_m,
+                            map_level_to_topics = append(map_level_to_topics, level, topic);
+                            map_level_topic_to_words = append(map_level_topic_to_words, [level, topic], word);
+                            map_level_topic_word_to_sentences = append(map_level_topic_word_to_sentences,
                                 [level, topic, word],
                                 [sentence_russian, sentence_english, form, analysis]);
                         }
@@ -176,7 +204,7 @@ var app = new Vue({
                     for (var i = 0; i < results.data.length; i++) {
                         var abbreviation = results.data[i]['Abbreviation'];
                         var spellout = results.data[i]['Spellout'];
-                        spellout_m[abbreviation] = spellout;
+                        map_abbreviation_to_spellout[abbreviation] = spellout;
                     }
                 }
             });
