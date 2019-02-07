@@ -30,6 +30,7 @@ var map_level_analysis_to_sentences = {};
 var map_abbreviation_to_spellout = {};
 var map_level_to_analyses = {};
 var map_word_to_translation = {};
+var map_topic_to_translation = {};
 
 
 var app = new Vue({
@@ -140,6 +141,9 @@ var app = new Vue({
         translate_word: function(word) {
             return map_word_to_translation[word];
         },
+        translate_topic: function(topic) {
+            return map_topic_to_translation[topic];
+        },
         analysis_spellout: function(abbreviation) {
             return map_abbreviation_to_spellout[abbreviation];
         },
@@ -230,6 +234,17 @@ var app = new Vue({
                         var abbreviation = results.data[i]['Abbreviation'];
                         var spellout = results.data[i]['Spellout'];
                         map_abbreviation_to_spellout[abbreviation] = spellout;
+                    }
+                }
+            });
+            Papa.parse('https://raw.githubusercontent.com/valentina-zh/SMARTool-data/master/SMARTool_data_Topics.csv', {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    for (var i = 0; i < results.data.length; i++) {
+                        var topic = results.data[i]['Topic'];
+                        var translation = results.data[i]['Translation'];
+                        map_topic_to_translation[topic] = translation;
                     }
                 }
             });
