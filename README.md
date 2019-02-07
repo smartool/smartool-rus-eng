@@ -1,6 +1,6 @@
 
 
-# SMARTool (prototype)
+# Strategic Mastery of Russian Tool (SMARTool)
 
 - Uses https://www.papaparse.com/#remote-files to fetch CSV data.
 - The code (JS and HTML) is licensed under the
