@@ -44,6 +44,9 @@
               <li class="nav-item">
                 <a class="nav-link show" data-toggle="modal" href="#abbreviations_modal">List of abbreviations</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link show" data-toggle="modal" href="#about_modal">About</a>
+              </li>
             </ul>
           </div>
 
@@ -166,6 +169,76 @@
                     <td>{{ spellout }}</td>
                   </tr>
                 </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- about -->
+        <div class="modal fade" id="about_modal" tabindex="-1" role="dialog" aria-labelledby="about_modal_label" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="about_modal_label">SMARTool: The Strategic Mastery of Russian Tool</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  The SMARTool is a free web resource for L2 learners of Russian that implements
+                  findings of a learning simulation experiment and corpus research to optimize
+                  the acquisition of Russian vocabulary and morphology. Corpus data
+                  <a href="https://doi.org/10.1515/cllt-2018-0031" target="_blank">(Janda & Tyers 2018)</a>
+                  reveals that for any given Russian lexeme, only a few (usually 1-3)
+                  wordforms account for nearly all attestations, while remaining wordforms are
+                  rare or unattested. Our computational learning experiment shows that learning
+                  of Russian inflection is best when training is restricted to high frequency
+                  wordforms. The SMARTool builds on these findings for a basic vocabulary of 3000
+                  nouns, adjectives, and verbs culled from major textbooks and other sources to
+                  represent levels A1, A2, B1, and B2 (CEFR scale). We have identified both a)
+                  the three most frequent wordforms for each lexeme (reducing the target number
+                  of wordforms to learn from 150,000 to 9,000) and b) the most typical
+                  grammatical constructions and collocations that motivate each wordform. We have
+                  also created c) corpus-based example sentences instantiating typical use.
+                </p>
+
+                <p>
+                  Audio for all sentences (in both female and male voices) and English
+                  translations are available at the click of a button. The SMARTool has filters
+                  that facilitate searching by: a) CEFR Level, b) Topic (such as время/time,
+                  еда/food, здоровье/health etc.), c) Analysis (such as Ins.Sing, facilitating
+                  grammatical exercises), and d) Dictionary form.
+                </p>
+
+                <p>
+                  Janda, Laura A. & Francis M. Tyers. 2018. Less is More: Why All Paradigms are
+                  Defective, and Why that is a Good Thing. Corpus Linguistics and Linguistic
+                  Theory 14(2), 33pp.
+                  <a href="https://doi.org/10.1515/cllt-2018-0031" target="_blank">doi.org/10.1515/cllt-2018-0031</a>.
+                </p>
+
+                <h4>
+                  Team behind this project
+                </h4>
+                <ul>
+                  <li>Radovan Bast (UiT The Arctic University of Norway): Design and Programming</li>
+                  <li>Laura A. Janda (UiT The Arctic University of Norway):
+                      Background research, Concept, Design, Vocabulary selection, Editing of content</li>
+                  <li>Tore Nesset (UiT The Arctic University of Norway): Concept, Design, Vocabulary selection</li>
+                  <li>Svetlana Sokolova (UiT The Arctic University of Norway): Concept, Design, Vocabulary selection</li>
+                  <li>James McDonald (UiT The Arctic University of Norway): Editing of content</li>
+                  <li>Mikhail Kopotev (University of Helsinki): Design, Vocabulary selection</li>
+                  <li>Francis M. Tyers (Indiana University): Background research, Concept, Design, Vocabulary selection</li>
+                  <li>Ekaterina Rakhilina (Higher School of Economics in Moscow): Concept</li>
+                  <li>Olga Lyashevskaya (Higher School of Economics in Moscow): Concept, Design, Vocabulary selection</li>
+                  <li>Valentina Zhukova (Higher School of Economics in Moscow): Content</li>
+                  <li>Evgeniia Sudarikova (Higher School of Economics in Moscow): Content</li>
+                </ul>
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
