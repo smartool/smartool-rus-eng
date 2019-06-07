@@ -9,6 +9,8 @@ input[type="text"], textarea {
 
 .top-buffer { margin-top: 25px; }
 
+.bottom-buffer { margin-bottom: 25px; }
+
 .highlight { background-color: #8fe6fe; }
 
 [v-cloak] {
