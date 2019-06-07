@@ -16,3 +16,11 @@ input[type="text"], textarea {
 [v-cloak] {
   display: none;
 }
+
+table {
+  white-space: nowrap;
+}
+
+.modal {
+  font-size: 13px;
+}

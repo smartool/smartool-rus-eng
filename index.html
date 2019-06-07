@@ -41,6 +41,9 @@
               <li class="nav-item">
                 <a class="nav-link show" data-toggle="tab" href="#by_word">Search by dictionary</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link show" data-toggle="modal" href="#abbreviations_modal">List of abbreviations</a>
+              </li>
             </ul>
           </div>
 
@@ -143,6 +146,31 @@
             <img src="img/siu.jpg" alt="SIU logo" height="90px">
             <img src="img/uit.png" alt="UiT logo" height="80px">
             <img src="img/hse.jpg" alt="HSE logo" height="90px">
+          </div>
+        </div>
+
+        <!-- list of abbreviations -->
+        <div class="modal fade" id="abbreviations_modal" tabindex="-1" role="dialog" aria-labelledby="abbreviations_modal_label" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="abbreviations_modal_label">List of abbreviations</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table>
+                  <tr v-for="(spellout, abbreviation) in map_abbreviation_to_spellout">
+                    <td>{{ abbreviation }}</td>
+                    <td>{{ spellout }}</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
           </div>
         </div>
 
