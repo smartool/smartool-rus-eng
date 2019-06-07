@@ -196,17 +196,25 @@ var app = new Vue({
                         var translation = results.data[i]['Eng Gloss'];
                         map_word_to_translation[word] = translation;
                         map_level_to_words = append(map_level_to_words, level, word);
+                        map_level_to_words = append(map_level_to_words, 'all levels', word);
 
                         var sentence_english = results.data[i]['Translation'];
                         var form = results.data[i]['Form'];
                         var analysis = results.data[i]['Analysis'];
 
                         map_level_to_analyses = append(map_level_to_analyses, level, analysis);
+                        map_level_to_analyses = append(map_level_to_analyses, 'all levels', analysis);
                         map_level_analysis_to_sentences = append(map_level_analysis_to_sentences,
                             [level, analysis],
                             [sentence_russian, sentence_english, form, analysis]);
+                        map_level_analysis_to_sentences = append(map_level_analysis_to_sentences,
+                            ['all levels', analysis],
+                            [sentence_russian, sentence_english, form, analysis]);
                         map_level_word_to_sentences = append(map_level_word_to_sentences,
                             [level, word],
+                            [sentence_russian, sentence_english, form, analysis]);
+                        map_level_word_to_sentences = append(map_level_word_to_sentences,
+                            ['all levels', word],
                             [sentence_russian, sentence_english, form, analysis]);
 
                         var topics_comma_separated = results.data[i]['Topic(s)'];
@@ -214,9 +222,14 @@ var app = new Vue({
                         for (var _topic of topics) {
                             var topic = _topic.trim();
                             map_level_to_topics = append(map_level_to_topics, level, topic);
+                            map_level_to_topics = append(map_level_to_topics, 'all levels', topic);
                             map_level_topic_to_words = append(map_level_topic_to_words, [level, topic], word);
+                            map_level_topic_to_words = append(map_level_topic_to_words, ['all levels', topic], word);
                             map_level_topic_word_to_sentences = append(map_level_topic_word_to_sentences,
                                 [level, topic, word],
+                                [sentence_russian, sentence_english, form, analysis]);
+                            map_level_topic_word_to_sentences = append(map_level_topic_word_to_sentences,
+                                ['all levels', topic, word],
                                 [sentence_russian, sentence_english, form, analysis]);
                         }
                     }
@@ -226,6 +239,7 @@ var app = new Vue({
                     }
                 }
             });
+            levels.add('all levels');
             Papa.parse('https://raw.githubusercontent.com/valentina-zh/SMARTool-data/master/SMARTool_data_Abbreviations.csv', {
                 download: true,
                 header: true,
