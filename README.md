@@ -1,4 +1,6 @@
 
+[![License](https://img.shields.io/badge/license-%20AGPL-blue.svg)](LICENSE)
+
 
 # Strategic Mastery of Russian Tool (SMARTool)
 
