@@ -166,7 +166,7 @@ var app = new Vue({
             'SMARTool_data_B1_ZHENYA.csv'
         ];
         for (var file of files) {
-            var url = 'https://raw.githubusercontent.com/valentina-zh/SMARTool-data/master/' + file;
+            var url = 'https://raw.githubusercontent.com/smartool/data-russian-english/master/' + file;
             Papa.parse(url, {
                 download: true,
                 header: true,
@@ -240,7 +240,7 @@ var app = new Vue({
                 }
             });
             levels.add('all levels');
-            Papa.parse('https://raw.githubusercontent.com/valentina-zh/SMARTool-data/master/SMARTool_data_Abbreviations.csv', {
+            Papa.parse('https://raw.githubusercontent.com/smartool/data-russian-english/master/SMARTool_data_Abbreviations.csv', {
                 download: true,
                 header: true,
                 complete: function(results) {
@@ -251,7 +251,7 @@ var app = new Vue({
                     }
                 }
             });
-            Papa.parse('https://raw.githubusercontent.com/valentina-zh/SMARTool-data/master/SMARTool_data_Topics.csv', {
+            Papa.parse('https://raw.githubusercontent.com/smartool/data-russian-english/master/SMARTool_data_Topics.csv', {
                 download: true,
                 header: true,
                 complete: function(results) {
