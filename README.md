@@ -54,3 +54,4 @@ Theory 14(2), 33pp. [doi.org/10.1515/cllt-2018-0031](https://doi.org/10.1515/cll
 - Olga Lyashevskaya (Higher School of Economics in Moscow): Concept, Design, Vocabulary selection
 - Valentina Zhukova (Higher School of Economics in Moscow): Content
 - Evgeniia Sudarikova (Higher School of Economics in Moscow): Content
+- Lisa Kibisova (Higher School of Economics in Moscow): Content
