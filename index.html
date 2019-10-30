@@ -67,7 +67,7 @@
             <div id="tab_content" class="tab-content">
               <div class="tab-pane fade active show" id="by_topic">
                 <label>Topic</label>
-                <select v-model="topic" class="form-control" v-on:click="select_mode('by_topic')">
+                <select v-model="topic" class="form-control" v-on:change="select_mode('by_topic')">
                   <option v-for="topic in topics" :value="topic">
                     {{ topic }} ({{ translate_topic(topic) }})
                   </option>
@@ -75,7 +75,7 @@
               </div>
               <div class="tab-pane fade" id="by_analysis">
                 <label>Analysis</label>
-                <select v-model="analysis" class="form-control" v-on:click="select_mode('by_analysis')">
+                <select v-model="analysis" class="form-control" v-on:change="select_mode('by_analysis')">
                   <option v-for="analysis in analyses">
                     {{ analysis }}
                   </option>
@@ -83,7 +83,7 @@
               </div>
               <div class="tab-pane fade" id="by_word">
                 <label>Word</label>
-                <select v-model="word" class="form-control" v-on:click="select_mode('by_word')">
+                <select v-model="word" class="form-control" v-on:change="select_mode('by_word')">
                   <option v-for="word in words_by_level" :value="word">
                     {{ word }} ({{ translate_word(word) }})
                   </option>
