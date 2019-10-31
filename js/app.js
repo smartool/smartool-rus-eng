@@ -70,7 +70,10 @@ var app = new Vue({
             if (t in map_level_to_words) {
                 l = Array.from(map_level_to_words[t]);
             }
-            l.sort();
+            // https://stackoverflow.com/a/9645447
+            l.sort(function(a, b) {
+                return a.toLowerCase().localeCompare(b.toLowerCase());
+            });
             return l;
         },
         words_by_level_topic: function() {
