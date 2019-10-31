@@ -162,8 +162,12 @@ var app = new Vue({
             'SMARTool_data_A2_LIZA.csv',
             'SMARTool_data_A2_VALYA.csv',
             'SMARTool_data_A2_ZHENYA.csv',
+            'SMARTool_data_B1_LIZA.csv',
             'SMARTool_data_B1_VALYA.csv',
-            'SMARTool_data_B1_ZHENYA.csv'
+            'SMARTool_data_B1_ZHENYA.csv',
+            'SMARTool_data_B2_LIZA.csv',
+            'SMARTool_data_B2_VALYA.csv',
+            'SMARTool_data_B2_ZHENYA.csv'
         ];
         for (var file of files) {
             var url = 'https://raw.githubusercontent.com/smartool/data-russian-english/master/' + file;
