@@ -1,6 +1,8 @@
 
 [![License](https://img.shields.io/badge/license-%20AGPL-blue.svg)](LICENSE)
 
+![language SMARTool](img/language_SMARTool_logo.png "language SMARTool")
+
 
 # SMARTool: The Strategic Mastery of Russian Tool
 
