@@ -37,6 +37,8 @@ function load_data(args) {
     var app = new Vue({
         el: '#app',
         data: {
+            target_language: args.target_language,
+            user_language: args.user_language,
             mode: 'by_topic',
             counter: 0,
             num_words: 0,
@@ -152,7 +154,7 @@ function load_data(args) {
                 return map_abbreviation_to_spellout[abbreviation];
             },
             play_voice: function(s) {
-                responsiveVoice.speak(s, args.voice_language + " " + this.voice);
+                responsiveVoice.speak(s, args.target_language + " " + this.voice);
             }
         },
         created: function() {

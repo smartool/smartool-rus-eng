@@ -25,7 +25,12 @@
       <div class="container">
 
         <div class="row top-buffer">
+          <div class="col-md-12">
+            SMARTool for {{ user_language }}-speaking learners of {{ target_language }}.
+          </div>
+        </div>
 
+        <div class="row top-buffer">
           <div class="col-md-2">
             <img src="img/language_SMARTool_logo.png" alt="language SMARTool" height="35px">
           </div>
@@ -266,7 +271,8 @@
 
     <script>
       load_data({
-          voice_language: 'Russian',
+          target_language: 'Russian',
+          user_language: 'English',
           data_url_prefix: 'https://raw.githubusercontent.com/smartool/data-rus-eng/master/',
           data_files: [
               'SMARTool_data_A1_LIZA.csv',
