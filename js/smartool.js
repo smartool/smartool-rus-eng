@@ -169,7 +169,7 @@ function load_data(args) {
                         num_successful_requests++;
                         for (var i = 0; i < results.data.length; i++) {
 
-                            if (results.data[i]['Lemma'] == '') {
+                            if (results.data[i]['Target language lemma'] == '') {
                                 continue;
                             }
 
@@ -179,7 +179,7 @@ function load_data(args) {
                             }
 
                             levels.add(level);
-                            var word = results.data[i]['Lemma'];
+                            var word = results.data[i]['Target language lemma'];
                             var sentence_russian = results.data[i]['Example Sentence'];
 
                             // with this we exclude sentences like "-", or ""
