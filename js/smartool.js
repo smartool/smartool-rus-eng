@@ -180,7 +180,7 @@ function load_data(args) {
 
                             levels.add(level);
                             var word = results.data[i]['Target language lemma'];
-                            var sentence_russian = results.data[i]['Example Sentence'];
+                            var sentence_russian = results.data[i]['Target language example sentence'];
 
                             // with this we exclude sentences like "-", or ""
                             // in other words we exclude unfinished examples
