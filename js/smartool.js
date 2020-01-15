@@ -193,7 +193,7 @@ function load_data(args) {
                             map_level_to_words = append(map_level_to_words, level, word);
                             map_level_to_words = append(map_level_to_words, 'all levels', word);
 
-                            var sentence_english = results.data[i]['Translation'];
+                            var sentence_english = results.data[i]['User language translation'];
                             var form = results.data[i]['Form'];
                             var analysis = results.data[i]['Analysis'];
 
@@ -252,7 +252,7 @@ function load_data(args) {
                     complete: function(results) {
                         for (var i = 0; i < results.data.length; i++) {
                             var topic = results.data[i]['Topic'];
-                            var translation = results.data[i]['Translation'];
+                            var translation = results.data[i]['User language translation'];
                             map_topic_to_translation[topic] = translation;
                         }
                     }
