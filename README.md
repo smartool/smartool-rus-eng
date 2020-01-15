@@ -6,7 +6,7 @@
 
 # SMARTool: The Strategic Mastery of Russian Tool
 
-- https://smartool.github.io/smartool/
+- https://smartool.github.io/smartool-rus-eng/
 - The code (JS and HTML) is licensed under the
   [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html)
   (except PapaParse which uses MIT license).
