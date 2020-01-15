@@ -188,7 +188,7 @@ function load_data(args) {
                                 continue;
                             }
 
-                            var translation = results.data[i]['Eng Gloss'];
+                            var translation = results.data[i]['User language gloss'];
                             map_word_to_translation[word] = translation;
                             map_level_to_words = append(map_level_to_words, level, word);
                             map_level_to_words = append(map_level_to_words, 'all levels', word);
