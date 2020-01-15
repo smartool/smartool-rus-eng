@@ -10,7 +10,7 @@
 - The code (JS and HTML) is licensed under the
   [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html)
   (except PapaParse which uses MIT license).
-- Uses https://www.papaparse.com/#remote-files to fetch [CSV data](https://github.com/smartool/data-russian-english).
+- Uses https://www.papaparse.com/#remote-files to fetch [CSV data](https://github.com/smartool/data-rus-eng).
 - Uses https://responsivevoice.org/api/ to convert text to speech.
 
 
