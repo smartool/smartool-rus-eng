@@ -3,6 +3,12 @@
 'use strict';
 
 
+// https://stackoverflow.com/a/24457420
+function is_integer(value) {
+    return /^-{0,1}\d+$/.test(value);
+}
+
+
 function append(o, k, v) {
     if (k in o) {
         var s = o[k];
@@ -40,6 +46,7 @@ function load_data(args) {
             target_language: args.target_language,
             user_language: args.user_language,
             mode: 'by_topic',
+            level_selection: args.level_selection, // Level | Lesson
             counter: 0,
             num_words: 0,
             level: '',
@@ -160,6 +167,11 @@ function load_data(args) {
         created: function() {
             var vm = this
             var levels = new Set();
+            if (vm.level_selection == 'Level') {
+                var all_levels = 'all levels';
+            } else {
+                var all_levels = 'all lessons';
+            }
             var num_successful_requests = 0;
             var files = args.data_files;
             for (var file of files) {
@@ -175,9 +187,21 @@ function load_data(args) {
                                 continue;
                             }
 
-                            var level = results.data[i]['Level'];
-                            if (level.trim() == '') {
-                                continue;
+                            if (vm.level_selection == 'Level') {
+                                var level = results.data[i]['Level'];
+                                if (level.trim() == '') {
+                                    continue;
+                                }
+                            } else {
+                                if (!('Lesson' in results.data[i])) {
+                                    continue;
+                                }
+                                var level = results.data[i]['Lesson'];
+                                if (is_integer(level)) {
+                                    level = parseInt(level, 10);
+                                } else {
+                                    continue;
+                                }
                             }
 
                             levels.add(level);
@@ -193,25 +217,25 @@ function load_data(args) {
                             var translation = results.data[i]['User language gloss'];
                             map_word_to_translation[word] = translation;
                             map_level_to_words = append(map_level_to_words, level, word);
-                            map_level_to_words = append(map_level_to_words, 'all levels', word);
+                            map_level_to_words = append(map_level_to_words, all_levels, word);
 
                             var sentence_english = results.data[i]['User language translation'];
                             var form = results.data[i]['Form'];
                             var analysis = results.data[i]['Analysis'];
 
                             map_level_to_analyses = append(map_level_to_analyses, level, analysis);
-                            map_level_to_analyses = append(map_level_to_analyses, 'all levels', analysis);
+                            map_level_to_analyses = append(map_level_to_analyses, all_levels, analysis);
                             map_level_analysis_to_sentences = append(map_level_analysis_to_sentences,
                                 [level, analysis],
                                 [sentence_russian, sentence_english, form, analysis]);
                             map_level_analysis_to_sentences = append(map_level_analysis_to_sentences,
-                                ['all levels', analysis],
+                                [all_levels, analysis],
                                 [sentence_russian, sentence_english, form, analysis]);
                             map_level_word_to_sentences = append(map_level_word_to_sentences,
                                 [level, word],
                                 [sentence_russian, sentence_english, form, analysis]);
                             map_level_word_to_sentences = append(map_level_word_to_sentences,
-                                ['all levels', word],
+                                [all_levels, word],
                                 [sentence_russian, sentence_english, form, analysis]);
 
                             var topics_comma_separated = results.data[i]['Topic(s)'];
@@ -219,24 +243,34 @@ function load_data(args) {
                             for (var _topic of topics) {
                                 var topic = _topic.trim();
                                 map_level_to_topics = append(map_level_to_topics, level, topic);
-                                map_level_to_topics = append(map_level_to_topics, 'all levels', topic);
+                                map_level_to_topics = append(map_level_to_topics, all_levels, topic);
                                 map_level_topic_to_words = append(map_level_topic_to_words, [level, topic], word);
-                                map_level_topic_to_words = append(map_level_topic_to_words, ['all levels', topic], word);
+                                map_level_topic_to_words = append(map_level_topic_to_words, [all_levels, topic], word);
                                 map_level_topic_word_to_sentences = append(map_level_topic_word_to_sentences,
                                     [level, topic, word],
                                     [sentence_russian, sentence_english, form, analysis]);
                                 map_level_topic_word_to_sentences = append(map_level_topic_word_to_sentences,
-                                    ['all levels', topic, word],
+                                    [all_levels, topic, word],
                                     [sentence_russian, sentence_english, form, analysis]);
                             }
                         }
                         if (num_successful_requests == files.length) {
                             vm.levels = Array.from(levels);
-                            vm.levels.sort();
+                            if (vm.level_selection == 'Level') {
+                                vm.levels.sort();
+                            } else {
+                                var collator = new Intl.Collator(undefined, {
+                                    numeric: true,
+                                    sensitivity: 'base'
+                                });
+                                // the collator is used to obtain natural sorting
+                                // see https://stackoverflow.com/a/38641281
+                                vm.levels.sort(collator.compare);
+                            }
                         }
                     }
                 });
-                levels.add('all levels');
+                levels.add(all_levels);
                 Papa.parse(args.data_url_prefix + args.abbreviations_file, {
                     download: true,
                     header: true,

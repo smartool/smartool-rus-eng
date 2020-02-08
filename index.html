@@ -60,7 +60,7 @@
         <div class="row top-buffer">
 
           <div class="col-md-2">
-            <label>Level</label>
+            <label>{{ level_selection }}</label>
             <select v-model="level" class="form-control">
               <option v-for="level in levels">
                 {{ level }}
@@ -273,6 +273,7 @@
       load_data({
           target_language: 'Russian',
           user_language: 'English',
+          level_selection: 'Level',
           data_url_prefix: 'https://raw.githubusercontent.com/smartool/data-rus-eng/master/',
           data_files: [
               'SMARTool_data_A1_LIZA.csv',
