@@ -11,11 +11,17 @@
 
 ## Dependencies and terms of use
 
+- **Commercial use is not allowed**. Uses
+  [ResponsiveVoice Text To Speech](https://responsivevoice.org)
+  under a [non-commercial license](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+  <a href="https://responsivevoice.org">
+    <img title="ResponsiveVoice Text To Speech"
+         src="https://responsivevoice.org/wp-content/uploads/2014/08/120x31.png" />
+  </a>
 - The code (JS and HTML) is licensed under the
   [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html)
   (except PapaParse which uses MIT license).
 - Uses https://www.papaparse.com/#remote-files to fetch [CSV data](https://github.com/smartool/data-rus-eng).
-- Uses https://responsivevoice.org/api/ to convert text to speech (**commercial use is not allowed**).
 
 
 ## About
